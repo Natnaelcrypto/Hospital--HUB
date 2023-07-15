@@ -1,0 +1,212 @@
+<!-- detsil page section -->
+
+{% extends 'core/main.html' %} {% block content %} {% load static %}
+<section style="background-color: #dadada;">
+  <br />
+  <br />
+  <br />
+
+  <div class="container">
+    <div class="d-lg-flex justify-content-between align-content-between">
+      <div class="d-flex flex-column mx-5">
+        <video src="{% static video.videofile %}" controls style="border-radius: 10px"
+          class="video-fluid w-100 mx4"></video>
+        <div class="d-flex my-5 hospital-image w-100" style="overflow-x: scroll; height: 9rem;">
+          {% for image in images%}
+
+          <img src=" {% static image.imagefile %}" alt="" class="img-fluid mx-3 my-3 w-50" style="border-radius: 10px"
+            ; />
+
+          {% endfor%}
+
+        </div>
+      </div>
+      <div class="d-flex flex-column">
+        <h1>{{hospital.name}}</h1>
+        <p class="lead">
+          {{hospital.description}}
+        </p>
+        <h2>Address</h2>
+        <p class="lead">
+          {{hospital.address}}
+        </p>
+        <a href="" class="btn btn-lg btn-dark w-25 mb-3">map</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- service list section -->
+
+<section class="my-5">
+  <div class="container">
+    <div class="text-center h2 mb-4">Services</div>
+    <div class="accordion accordion-flush" id="services">
+      <!-- service one -->
+      {% for service in services%}
+      <div class="accordion-item my-3 ">
+        <h2 class="accordion-header rounded-1">
+          <button class="accordion-button collapsed bg-secondary text-light" type="button" data-bs-toggle="collapse"
+            data-bs-target="#service{{service.id}}">
+            <p class="lead">{{service.name}}</p>
+          </button>
+        </h2>
+        <div id="service{{service.id}}" class="accordion-collapse collapse" data-bs-parent="#services">
+          <div class="accordion-body">
+            {{service.detail}}
+          </div>
+        </div>
+      </div>
+      {% endfor%}
+    </div>
+    {% if request.user.is_authenticated and user.role == "GU" %}
+    <button class="btn btn-primary mt-5 text-center btn-lg" data-bs-toggle="modal" data-bs-target="#add-appointment">Add
+      Appointment</button>
+    {% endif%}
+  </div>
+</section>
+
+<!-- comment section  -->
+{% if request.user.is_authenticated %}
+<section class="py-1" style="background-color: #dadada;">
+  <div class="container my-5">
+    {% if user.role == "GU" %}
+    <form method="Post" class="">
+      {%csrf_token%}
+      <div class="row my-3">
+        <label for="comment-input">
+          <h2>Comment</h2>
+        </label>
+      </div>
+
+      <div class="row">
+        <textarea name="comment" id="comment-input" class="mx-sm-2" cols="20" rows="4"
+          style="border-radius: 10px"></textarea>
+      </div>
+      <button type="submit" class="btn btn-lg btn-primary my-3">Send</button>
+    </form>
+    {% endif %}
+  </div>
+
+  <div class="container py-2 px-5">
+    <br>
+    <div class="h4 my-3">Comments</div>
+    <div style="display: flex; flex-direction: column; ">
+      {%for comment in comments %}
+      <div class="row my-2 bg-secondary text-light py-4 px-3" style="border-radius: 10px;">
+        <div class="row lead">{{comment.email}}</div>
+        <hr />
+        <div class="row mb-4">
+          {{comment.comment}}
+        </div>
+        <div class="col">
+          <div class="btn btn-warning btn-lg mb-1" style="height: 3rem;text-align: center;padding-bottom: 2.3rem;">
+            Like
+          </div>
+          <hr />
+        </div>
+      </div>
+
+      {% endfor%}
+
+
+    </div>
+
+</section>
+{% endif%}
+
+<!-- add Appointment modal  -->
+
+<div class="modal fade" id="add-appointment" tabindex="-1" aria-labelledby="enrollLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="enrollLabel">Patient Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="post">
+          {%csrf_token%}
+          <div class="mb-3">
+            <div class="row">
+              <label for="Service-name" class="col-form-label">
+                First name
+              </label>
+            </div>
+            <div class="row">
+              <div class="col">
+                <input type="text" name="first_name" class="w-75" id="Service-name" />
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <div class="row">
+              <label for="Service-name2" class="col-form-label">
+                Last name
+              </label>
+            </div>
+            <div class="row">
+              <div class="col">
+                <input type="text" name="last_name" class="w-75" id="Service-name2" />
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <div class="row">
+              <label for="Service-name3" class="col-form-label">
+                Age
+              </label>
+            </div>
+            <div class="row">
+              <div class="col">
+                <input type="number" name="age" class="w-75" id="Service-name3" />
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <div class="row">
+              <label for="Service-name" class="col-form-label">
+                Gender
+              </label>
+            </div>
+            <div class="row">
+              <div class="col">
+                <select name="gender" id="">
+                  <option value="M">Male</option>
+                  <option value="F">Female</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <div class="row">
+              <label for="Service-name" class="col-form-label">
+                Service name
+              </label>
+            </div>
+            <div class="row">
+              <div class="col">
+                <select name="service" id="">
+                  {% for service in services%}
+                  <option value="{{service.name}}">{{service.name}}</option>
+                  {% endfor%}
+                </select>
+
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Close
+            </button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% endblock%}

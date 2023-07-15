@@ -1,0 +1,65 @@
+{% extends 'core/main.html' %} {% block content %} {% load static %}
+
+<!-- introdaction page -->
+
+<section class="text-dark p-5 p-lg-0 pt-lg-5 text-center text-sm-start mt-5">
+  <div class="container">
+    <div class="d-lg-flex align-items-center justify-content-between my-2">
+      <div class="px-1">
+        <h1>Find your best hospital</h1>
+        <p class="lead">
+          Welcome to our website, your ultimate guide to hospitals in Ethiopia.
+          Here, you will find an extensive list of hospitals located across the
+          country, providing essential healthcare services to communities in
+          need. Our goal is to make it easier for you to access reliable and
+          up-to-date information about these medical institutions. Explore our
+          website, discover the hospitals that meet your specific requirements,
+          and embark on your journey towards better health with confidence.
+        </p>
+      </div>
+      <img src=" {% static '/image/doc.jpg'%}" class="img-fluid w-lg-30 w-md-50 w-sm-90 mt-5 mx-2" style="
+          border-radius: 5px;
+          box-shadow: 1px 2px 10px 2px rgba(0, 0, 0, 0.25);
+        " alt="doc.jpg" />
+    </div>
+  </div>
+</section>
+
+<!-- search section  -->
+
+<section class="my-5 py-5" style="background-color: #ebeffa">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="input-group news-input w-50 col col-lg-5">
+        <input type="text" class="form-control" placeholder="Search hear" />
+        <button class="btn btn-dark btn-lg" type="button">Search</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- hospitals list  -->
+
+<section class="p-5">
+  <div class="container">
+    <h1 class="text-center">Hospitals</h1>
+    <div class="row justify-content-center">
+      {% for hospital in hospitals%}
+      <div class="col-md-6 col-lg-3 my-5 mx-4">
+        <div class="card bg-light">
+          <div class="card-body text-center">
+            <img src=" {% static hospital.logo %}" alt="{{hospital.logo}}" class="ima-fluid w-100 mb-3"
+              style="border-radius: 5px" alt="" />
+            <h3 class="card-title my-4" style="height: 3.5rem;">{{hospital.name}}</h3>
+            <a href="{% url 'detail' hospital.id %}" class="btn btn-dark btn-lg mb-2">Get info</a>
+          </div>
+        </div>
+      </div>
+
+      {% endfor %}
+
+    </div>
+  </div>
+</section>
+
+{% endblock%}

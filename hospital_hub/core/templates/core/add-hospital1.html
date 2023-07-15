@@ -1,0 +1,82 @@
+{% extends 'core/main.html' %} {% block content %} {% load static %}
+<section>
+  <div class="container">
+    <form action="" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="row">
+        <div class="col">
+          <div class="row">
+            <h2>Hospital details</h2>
+          </div>
+          <hr />
+          <div class="row pt-4">
+            <div class="col">
+              <label for="hospital-name" class="h4">Hospital name</label>
+            </div>
+            <div class="col col-lg-9 col-md-8 col-sm-8">
+              <input type="text" class="px-2 w-75 py-2" placeholder="Hospital name" id="hospital-name" name="name" />
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col">
+              <label for="hospital-image" class="h4">Hospital logo</label>
+            </div>
+            <div class="col col-lg-9 col-md-8 col-sm-8">
+              <input type="file" id="hospital-image" name="logo" />
+              <p class="my-2 text-danger">
+                add one image with size less than 500kb*
+              </p>
+            </div>
+          </div>
+          <div class="row my-4">
+            <div class="col col-sm-7 col-md-6 col-lg-3">
+              <label for="hospital-description" class="h4">Hospital description</label>
+            </div>
+            <div class="col col-lg-9 col-md-8 col-sm-12">
+              <textarea name="description" id="hospital-description" cols="30" rows="4" class="px-2 w-75"
+                placeholder="Hospital description "></textarea>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-sm-7 col-md-6 col-lg-3">
+              <label for="hospital-address" class="h4">Hospital address</label>
+            </div>
+            <div class="col col-lg-9 col-md-8 col-sm-12">
+              <textarea name="address" id="hospital-address" cols="30" rows="3" class="w-75 px-2"
+                placeholder="Hospital addess"></textarea>
+            </div>
+          </div>
+          <hr />
+          <div class="row h2 px-3">Hospital Image and Video</div>
+          <hr />
+          <div class="row">
+            <div class="col">
+              <label for="hospital-image" class="h4">Hospital image</label>
+            </div>
+            <div class="col col-lg-9 col-md-8 col-sm-8">
+              <input type="file" id="hospital-image" name="image" multiple>
+              <p class="my-2 text-danger">
+                add one to four images with size less than 500kb*
+              </p>
+            </div>
+          </div>
+
+          <div class="row my-4">
+            <div class="col">
+              <label for="hospital-video" class="h4"> Hospital video </label>
+            </div>
+            <div class="col col-lg-9 col-md-8 col-sm-8">
+              <input type="file" id="hospital-video" name="video" />
+              <p class="my-2 text-danger">
+                add one video with size less than 5mb
+              </p>
+            </div>
+          </div>
+          <hr />
+        </div>
+      </div>
+      <button class="btn btn-lg btn-dark my-5" type="submit">Save Hospital</button>
+    </form>
+  </div>
+</section>
+{% endblock%}

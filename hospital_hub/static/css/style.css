@@ -1,0 +1,19 @@
+/* .hospital-image:hover {
+  position: fixed;
+  top: 10vh;
+  left: 30vw;
+  width: 50vw;
+} */
+.hospital-image::-webkit-scrollbar {
+  width: 0;
+}
+#services::-webkit-scrollbar {
+  width: 0;
+}
+.appiointment::-webkit-scrollbar {
+  width: 0;
+}
+
+.comment::-webkit-scrollbar {
+  width: 0;
+}
